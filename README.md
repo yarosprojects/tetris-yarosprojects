@@ -1,2 +1,2 @@
 # tetris
-Tetris game developed in Astro framwork
+Tetris game developed in Astro framework
