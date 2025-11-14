@@ -17,3 +17,19 @@
         <img src={frameworkIcon} alt="Angular image" class="size-6">
     </div>
 </header>
+
+<style>
+    header {
+        animation-timeline: scroll();
+        animation-range: 0 50px;
+        animation: blurHeader .5s linear both;
+    }
+
+    @keyframes blurHeader {
+        from {
+            backdrop-filter: blur(0px);
+        } to {
+            backdrop-filter: blur(40px);
+        }
+    }
+</style>

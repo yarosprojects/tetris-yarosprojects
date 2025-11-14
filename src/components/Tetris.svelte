@@ -1,5 +1,6 @@
 <script lang="ts">
     import { onMount, onDestroy } from "svelte";
+    import tetrisAudioUrl from '$lib/audio/tetris.mp3';
     import {
         BLOCK_SIZE,
         ROWS,
@@ -12,8 +13,8 @@
     import type { Piece } from "../types/types";
     import Controls from "./Controls.svelte";
     import Score from "./Score.svelte";
-    import Header from "./Header.svelte";
 
+    let audio: HTMLAudioElement;
     let canvas: HTMLCanvasElement;
     let upgradeInfo: HTMLDivElement;
     let ctx: CanvasRenderingContext2D;
@@ -25,6 +26,9 @@
     let score = 0;
     let level = 0;
     let dropInterval: ReturnType<typeof setInterval>;
+
+    audio = new Audio(tetrisAudioUrl);
+    let musicIsPlaying = false;
 
 
     // SPAWN A RANDOM PIECE ON BOARD 
@@ -218,6 +222,22 @@
         }, 600);
     }
 
+    // TETRIS AUDIO PLAY
+    function toggleMusic() {
+        if (musicIsPlaying) {
+            audio.pause();
+            audio.currentTime = 0;
+            musicIsPlaying = false;
+        } else {
+            audio.play();
+            musicIsPlaying = true;
+        }
+    }
+
+    audio.addEventListener('ended', () => {
+        musicIsPlaying = false;
+    });
+
     // ON INIT
     onMount(() => {
         ctx = canvas.getContext("2d")!;
@@ -234,7 +254,6 @@
     });
 </script>
 
-<Header />
 { #if gameOver }
     <div class="fixed inset-0 flex items-center justify-center backdrop-blur-lg z-9999">
         <div class="bg-gray-900 rounded-3xl p-8 flex flex-col items-center shadow-lg animate-fade-in">
@@ -250,7 +269,7 @@
     </div>
 {/if }
 
-<div class="relative m-0 p-0 flex flex-col w-full justify-center items-center">
+<div class="relative m-0 p-0 flex flex-col w-full justify-center items-center pt-20 md:pt-0">
     <!-- UPDATE ALERT -->
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-8000 hidden" bind:this={upgradeInfo} aria-label="Upgrade score text label">
         <span class="text-5xl text-yellow-400 font-bold">
@@ -259,8 +278,33 @@
     </div>
 
     <!-- GAME BOARD -->
-    <canvas bind:this={canvas} width={CANVAS_WIDTH} height={CANVAS_HEIGHT} aria-label="Tetris board" class="max-w-full"></canvas>
+    <canvas bind:this={canvas} width={CANVAS_WIDTH} height={CANVAS_HEIGHT} aria-label="Tetris board" class="max-w-full animate-fade-in-up"></canvas>
 </div>
 
 <Score />
 <Controls {onMove} />
+
+<div class="w-full flex justify-center items-center px-4 py-5">
+    <button 
+        type="button" 
+        aria-label={musicIsPlaying ? "Stop Music" : "Play Music"}  
+        on:click={toggleMusic} 
+        class="hover:scale-105 active:scale-85 transition-all cursor-pointer outline-none border-none"
+    >
+        <div class="flex flex-row justify-center items-center gap-2 px-6 py-3 bg-black rounded-lg">
+            <span class="text-base text-white">
+                {musicIsPlaying ? "Stop Music" : "Play Music"}
+            </span>
+            {#if !musicIsPlaying}
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 53 58" height="23" width="23" class="text-white/80">
+                <path stroke-width="9" stroke="currentColor" d="M44.25 36.3612L17.25 51.9497C11.5833 55.2213 4.5 51.1318 4.50001 44.5885L4.50001 13.4115C4.50001 6.86824 11.5833 2.77868 17.25 6.05033L44.25 21.6388C49.9167 24.9104 49.9167 33.0896 44.25 36.3612Z"></path>
+                </svg>
+            {:else}
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 53 58" height="23" width="23" class="text-white/80">
+                <rect x="10" y="10" width="12" height="38" fill="currentColor"/>
+                <rect x="31" y="10" width="12" height="38" fill="currentColor"/>
+                </svg>
+            {/if}
+        </div>
+    </button>
+</div>

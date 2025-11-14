@@ -1,10 +1,12 @@
 <script>
     import Welcome from "../components/Welcome.svelte";
     import Tetris from "../components/Tetris.svelte";
+    import Header from "../components/Header.svelte";
 
     let start = false;
 </script>
 
+<Header />
 <main class="w-full min-h-screen flex flex-col justify-center items-center px-4 md:px-0">
     {#if start}
         <Tetris />
