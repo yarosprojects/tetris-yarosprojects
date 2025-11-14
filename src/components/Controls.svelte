@@ -5,7 +5,7 @@
 
 <div class="w-full flex md:hidden justify-center my-2 md:my-5 px-4 py-0 md:py-5" aria-label="Mobile controls">
     <ul
-        class="w-full flex flex-row justify-between items-center gap-3 bg-black/30 py-5 rounded-3xl px-4"
+        class="w-full flex flex-row justify-center max-[400px]:flex-wrap items-center gap-5 bg-black/30 py-5 rounded-3xl px-4"
     >
         {#each Object.values(CONTROLS) as control}
             <li>

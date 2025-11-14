@@ -12,6 +12,7 @@
     import type { Piece } from "../types/types";
     import Controls from "./Controls.svelte";
     import Score from "./Score.svelte";
+    import Header from "./Header.svelte";
 
     let canvas: HTMLCanvasElement;
     let upgradeInfo: HTMLDivElement;
@@ -232,6 +233,8 @@
         clearInterval(dropInterval);
     });
 </script>
+
+<Header />
 { #if gameOver }
     <div class="fixed inset-0 flex items-center justify-center backdrop-blur-lg z-9999">
         <div class="bg-gray-900 rounded-3xl p-8 flex flex-col items-center shadow-lg animate-fade-in">
@@ -256,7 +259,7 @@
     </div>
 
     <!-- GAME BOARD -->
-    <canvas bind:this={canvas} width={CANVAS_WIDTH} height={CANVAS_HEIGHT} aria-label="Tetris board"></canvas>
+    <canvas bind:this={canvas} width={CANVAS_WIDTH} height={CANVAS_HEIGHT} aria-label="Tetris board" class="max-w-full"></canvas>
 </div>
 
 <Score />
