@@ -1,0 +1,28 @@
+@import "tailwindcss";
+@plugin '@midudev/tailwind-animations';
+@plugin "@iconify/tailwind4";
+
+:root {
+    --bg-color: linear-gradient(to bottom, #0b0b2b, #1b2735 70%, #090a0f);
+    --header-h: 70px;
+}
+
+@font-face {
+    font-family: 'font-md';
+    src: url('./lib/fonts/Onest-VariableFont/Onest-VariableFont_wght.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+html, 
+body {
+    min-height: 100vh;
+}
+
+body {
+    background: var(--bg-color);
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: "font-lg", "font-md", system-ui, sans-serif;
+}

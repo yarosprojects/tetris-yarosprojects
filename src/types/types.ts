@@ -1,0 +1,1 @@
+export type Piece = { shape: number[][]; color: string; x: number; y: number };
