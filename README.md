@@ -14,7 +14,6 @@ A classic Tetris game built with **Svelte**, **TypeScript**, and **HTML5 Canvas*
 - Fully responsive design
 
 ## Demo
-
 You can try the game online: [Insert your demo link here]
 
 ## Installation
