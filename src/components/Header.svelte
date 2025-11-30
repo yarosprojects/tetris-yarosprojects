@@ -1,5 +1,5 @@
 <script>
-    const projectsWeb = "https://yarosprojects.vercel.app/es-ES/";
+    const projectsWeb = "https://yarosprojects.dev";
     const frameworkIcon = "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/svelte/svelte-original.svg";
 </script>
 
